@@ -2,7 +2,9 @@
 <html lang="ru">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Кружки</title>
@@ -19,8 +21,24 @@
 type="text"
 id="search"
 placeholder="🔎 Найти кружок..."
-oninput="searchClubs()"
+oninput="filterClubs()"
 />
+
+<div class="filters">
+
+<select id="ageFilter" onchange="filterClubs()">
+<option value="">Возраст</option>
+</select>
+
+<select id="addressFilter" onchange="filterClubs()">
+<option value="">Адрес</option>
+</select>
+
+<select id="directionFilter" onchange="filterClubs()">
+<option value="">Направление</option>
+</select>
+
+</div>
 
 <div id="clubs"></div>
 

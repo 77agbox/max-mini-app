@@ -1,132 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
+
 <title>Центр Виктор</title>
 
-<style>
+<link rel="stylesheet" href="styles.css">
 
-body{
-font-family: Arial;
-background:#f2f2f2;
-margin:0;
-padding:20px;
-}
-
-h1{
-text-align:center;
-}
-
-.container{
-max-width:900px;
-margin:auto;
-}
-
-.card{
-background:white;
-padding:20px;
-margin:15px 0;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-.title{
-font-size:20px;
-font-weight:bold;
-}
-
-.info{
-margin:8px 0;
-color:#555;
-}
-
-button{
-margin-top:10px;
-padding:10px 18px;
-border:none;
-border-radius:8px;
-background:#4CAF50;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-background:#45a049;
-}
-
-</style>
 </head>
 
 <body>
 
-<h1>🎨 Кружки центра Виктор</h1>
+<h1>Центр Виктор</h1>
 
-<div class="container" id="clubs"></div>
+<div class="menu">
 
-<script>
-
-const clubs = [
-{
-name:"Робототехника",
-age:"8-12 лет",
-address:"ул. Ленина 10",
-teacher:"Иванов И.И."
-},
-{
-name:"Программирование",
-age:"10-15 лет",
-address:"ул. Гагарина 5",
-teacher:"Петров П.П."
-},
-{
-name:"3D моделирование",
-age:"9-14 лет",
-address:"ул. Победы 8",
-teacher:"Сидоров С.С."
-}
-];
-
-function loadClubs(){
-
-const container = document.getElementById("clubs");
-
-clubs.forEach(club=>{
-
-const card=document.createElement("div");
-card.className="card";
-
-card.innerHTML=`
-
-<div class="title">${club.name}</div>
-
-<div class="info">Возраст: ${club.age}</div>
-
-<div class="info">Адрес: ${club.address}</div>
-
-<div class="info">Преподаватель: ${club.teacher}</div>
-
-<button onclick="signup('${club.name}')">
-Записаться
+<button onclick="openPage('clubs')">
+🎨 Кружки
 </button>
 
-`;
+<button onclick="openPage('masters')">
+🧩 Мастер-классы
+</button>
 
-container.appendChild(card);
+<button onclick="openPage('packages')">
+🎉 Пакетные туры
+</button>
 
-});
+<button onclick="openPage('support')">
+✉ Поддержка
+</button>
 
-}
+</div>
 
-function signup(name){
+<div id="content"></div>
 
-alert("Вы записались на кружок: " + name);
-
-}
-
-loadClubs();
-
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>

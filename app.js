@@ -1,33 +1,90 @@
-async function showClubs(){
+let clubs = []
+
+async function loadClubs(){
 
 const response = await fetch("clubs.json")
 
-const clubs = await response.json()
+const data = await response.json()
 
-let html=""
+// преобразуем русский JSON в удобный формат
 
-clubs.forEach(c=>{
+clubs = data.map(c => ({
 
-html += `
+direction: c["Наименование третьего уровня РБНДО"],
+
+name: c["Наименование детского объединения"],
+
+age: c["Возраст"],
+
+address: c["Адрес предоставления услуги"],
+
+teacher: c["Педагог"] || "не указан",
+
+link: c["Ссылка"]
+
+}))
+
+renderClubs(clubs)
+
+}
+
+function renderClubs(list){
+
+const container = document.getElementById("clubs")
+
+container.innerHTML = ""
+
+list.forEach(c => {
+
+container.innerHTML += `
+
 <div class="card">
 
 <h3>${c.name}</h3>
 
-<p>Возраст: ${c.age}</p>
+<p><b>Направление:</b> ${c.direction}</p>
 
-<p>Адрес: ${c.address}</p>
+<p><b>Возраст:</b> ${c.age}</p>
 
-<p>Педагог: ${c.teacher}</p>
+<p><b>Адрес:</b> ${c.address}</p>
 
-<a href="${c.link}">
-<button>Записаться</button>
+<p><b>Педагог:</b> ${c.teacher}</p>
+
+<a href="${c.link}" target="_blank">
+
+<button>Подробнее / Записаться</button>
+
 </a>
 
 </div>
+
 `
 
 })
 
-document.getElementById("content").innerHTML = html
+}
+
+function searchClubs(){
+
+const text = document
+.getElementById("search")
+.value
+.toLowerCase()
+
+const filtered = clubs.filter(c =>
+
+c.name.toLowerCase().includes(text) ||
+
+c.direction.toLowerCase().includes(text) ||
+
+c.teacher.toLowerCase().includes(text) ||
+
+c.address.toLowerCase().includes(text)
+
+)
+
+renderClubs(filtered)
 
 }
+
+loadClubs()

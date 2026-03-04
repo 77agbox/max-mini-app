@@ -1,58 +1,127 @@
-let clubs = []
+let clubs=[]
+
+let selectedAddress=null
+let selectedDirection=null
 
 async function loadClubs(){
 
-const response = await fetch("clubs.json")
+const response=await fetch("clubs.json")
 
-const data = await response.json()
+const data=await response.json()
 
-clubs = data.map(c => ({
+clubs=data.map(c=>({
 
-direction: c["Наименование третьего уровня РБНДО"],
+direction:c["Наименование третьего уровня РБНДО"],
 
-name: c["Наименование детского объединения"],
+name:c["Наименование детского объединения"],
 
-age: c["Возраст"],
+age:c["Возраст"],
 
-address: c["Адрес предоставления услуги"],
+address:c["Адрес предоставления услуги"],
 
-teacher: c["Педагог"] || "не указан",
+teacher:c["Педагог"]||"не указан",
 
-link: c["Ссылка"]
+link:c["Ссылка"]
 
 }))
 
-updateFilters(clubs)
+createChips()
 
 renderClubs(clubs)
 
 }
 
-function parseAge(ageString){
+function parseAge(age){
 
-if(!ageString) return {min:0,max:99}
+if(!age)return{min:0,max:99}
 
-if(ageString.includes("+")){
+if(age.includes("+")){
 
-return {
+return{min:parseInt(age),max:99}
 
-min:parseInt(ageString),
+}
 
-max:99
+const p=age.split("-")
+
+return{
+
+min:parseInt(p[0]),
+
+max:parseInt(p[1])
 
 }
 
 }
 
-const parts=ageString.split("-")
+function createChips(){
 
-return {
+const addresses=[...new Set(clubs.map(c=>c.address))]
+const directions=[...new Set(clubs.map(c=>c.direction))]
 
-min:parseInt(parts[0]),
+const addrContainer=document.getElementById("addressChips")
+const dirContainer=document.getElementById("directionChips")
 
-max:parseInt(parts[1])
+addresses.forEach(a=>{
+
+const chip=document.createElement("div")
+
+chip.className="chip"
+
+chip.textContent=a
+
+chip.onclick=()=>{
+
+selectedAddress=(selectedAddress===a)?null:a
+
+updateChips()
+
+filterClubs()
 
 }
+
+addrContainer.appendChild(chip)
+
+})
+
+directions.forEach(d=>{
+
+const chip=document.createElement("div")
+
+chip.className="chip"
+
+chip.textContent=d
+
+chip.onclick=()=>{
+
+selectedDirection=(selectedDirection===d)?null:d
+
+updateChips()
+
+filterClubs()
+
+}
+
+dirContainer.appendChild(chip)
+
+})
+
+}
+
+function updateChips(){
+
+document.querySelectorAll("#addressChips .chip")
+.forEach(c=>{
+
+c.classList.toggle("active",c.textContent===selectedAddress)
+
+})
+
+document.querySelectorAll("#directionChips .chip")
+.forEach(c=>{
+
+c.classList.toggle("active",c.textContent===selectedDirection)
+
+})
 
 }
 
@@ -92,40 +161,6 @@ container.innerHTML+=`
 
 }
 
-function updateFilters(list){
-
-const addresses=[...new Set(list.map(c=>c.address))]
-const directions=[...new Set(list.map(c=>c.direction))]
-
-fillSelect("addressFilter",addresses)
-fillSelect("directionFilter",directions)
-
-}
-
-function fillSelect(id,values){
-
-const select=document.getElementById(id)
-
-const current=select.value
-
-select.innerHTML=`<option value="">${select.id==="addressFilter"?"Адрес":"Направление"}</option>`
-
-values.sort().forEach(v=>{
-
-const option=document.createElement("option")
-
-option.value=v
-
-option.textContent=v
-
-select.appendChild(option)
-
-})
-
-select.value=current
-
-}
-
 function filterClubs(){
 
 const text=document
@@ -137,51 +172,39 @@ const ageInput=document
 .getElementById("ageInput")
 .value
 
-const address=document
-.getElementById("addressFilter")
-.value
+let filtered=clubs.filter(c=>
 
-const direction=document
-.getElementById("directionFilter")
-.value
+c.name.toLowerCase().includes(text) ||
 
-let filtered=clubs.filter(c=>{
+c.direction.toLowerCase().includes(text) ||
 
-const nameMatch=c.name.toLowerCase().includes(text)
+c.teacher.toLowerCase().includes(text)
 
-const dirMatch=c.direction.toLowerCase().includes(text)
-
-const teacherMatch=c.teacher.toLowerCase().includes(text)
-
-return nameMatch||dirMatch||teacherMatch
-
-})
+)
 
 if(ageInput){
 
 filtered=filtered.filter(c=>{
 
-const age=parseAge(c.age)
+const a=parseAge(c.age)
 
-return ageInput>=age.min && ageInput<=age.max
+return ageInput>=a.min && ageInput<=a.max
 
 })
 
 }
 
-if(address){
+if(selectedAddress){
 
-filtered=filtered.filter(c=>c.address===address)
-
-}
-
-if(direction){
-
-filtered=filtered.filter(c=>c.direction===direction)
+filtered=filtered.filter(c=>c.address===selectedAddress)
 
 }
 
-updateFilters(filtered)
+if(selectedDirection){
+
+filtered=filtered.filter(c=>c.direction===selectedDirection)
+
+}
 
 renderClubs(filtered)
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Центр Виктор</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f4f4;
+text-align:center;
+padding:40px;
+}
+
+.card{
+background:white;
+padding:20px;
+margin:15px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+button{
+padding:12px 20px;
+font-size:16px;
+border:none;
+border-radius:8px;
+background:#4CAF50;
+color:white;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Центр Виктор</h1>
+
+<div class="card">
+<h2>🎨 Кружки</h2>
+<button onclick="showClubs()">Открыть</button>
+</div>
+
+<div class="card">
+<h2>🧩 Мастер-классы</h2>
+<button onclick="alert('Список мастер-классов')">
+Открыть
+</button>
+</div>
+
+<div class="card">
+<h2>📞 Поддержка</h2>
+<button onclick="alert('Напишите администратору')">
+Написать
+</button>
+</div>
+
+<script>
+
+function showClubs(){
+alert("Здесь будет список кружков");
+}
+
+</script>
+
+</body>
+</html>

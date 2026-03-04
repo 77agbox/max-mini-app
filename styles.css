@@ -1,79 +1,131 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    margin: 0;
-    padding: 20px;
+body{
+
+font-family: Arial, sans-serif;
+
+background:#f4f6f8;
+
+margin:0;
+
+padding:20px;
+
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
+h1{
+
+text-align:center;
+
+margin-bottom:20px;
+
 }
 
-/* поля ввода */
+input{
 
-input {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 15px;
-    box-sizing: border-box;
+width:100%;
+
+padding:14px;
+
+font-size:16px;
+
+border-radius:12px;
+
+border:1px solid #ccc;
+
+margin-bottom:15px;
+
+box-sizing:border-box;
+
 }
 
-/* блок фильтров */
+/* chips */
 
-.filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+.chips{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:8px;
+
+margin-bottom:20px;
+
 }
 
-select {
-    flex: 1;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 15px;
+.chip{
+
+padding:8px 14px;
+
+border-radius:20px;
+
+background:white;
+
+border:1px solid #ccc;
+
+cursor:pointer;
+
+font-size:14px;
+
 }
 
-/* карточка кружка */
+.chip.active{
 
-.card {
-    background: white;
-    padding: 16px;
-    margin-bottom: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+background:#2d7ef7;
+
+color:white;
+
+border-color:#2d7ef7;
+
 }
 
-.card h3 {
-    margin-top: 0;
+/* карточки */
+
+.card{
+
+background:white;
+
+padding:16px;
+
+margin-bottom:15px;
+
+border-radius:12px;
+
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+
 }
 
-.card p {
-    word-break: break-word;
+.card h3{
+
+margin-top:0;
+
 }
 
-/* кнопка */
+.card p{
 
-.card button {
-    margin-top: 10px;
-    padding: 12px 16px;
-    border: none;
-    background: #2d7ef7;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
+word-break:break-word;
+
 }
 
-.card button:hover {
-    background: #1f65d6;
+.card button{
+
+margin-top:10px;
+
+padding:12px 16px;
+
+border:none;
+
+background:#2d7ef7;
+
+color:white;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-size:15px;
+
 }
 
-.card button:active {
-    transform: scale(0.98);
+.card button:active{
+
+transform:scale(0.97);
+
 }

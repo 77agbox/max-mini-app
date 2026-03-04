@@ -22,38 +22,37 @@ link: c["Ссылка"]
 
 }))
 
-createFilters()
+updateFilters(clubs)
 
 renderClubs(clubs)
 
 }
 
-function createFilters(){
+function parseAge(ageString){
 
-const ages = [...new Set(clubs.map(c=>c.age))]
-const addresses = [...new Set(clubs.map(c=>c.address))]
-const directions = [...new Set(clubs.map(c=>c.direction))]
+if(!ageString) return {min:0,max:99}
 
-fillSelect("ageFilter",ages)
-fillSelect("addressFilter",addresses)
-fillSelect("directionFilter",directions)
+if(ageString.includes("+")){
+
+return {
+
+min:parseInt(ageString),
+
+max:99
 
 }
 
-function fillSelect(id,values){
+}
 
-const select=document.getElementById(id)
+const parts=ageString.split("-")
 
-values.sort().forEach(v=>{
+return {
 
-const option=document.createElement("option")
+min:parseInt(parts[0]),
 
-option.value=v
-option.textContent=v
+max:parseInt(parts[1])
 
-select.appendChild(option)
-
-})
+}
 
 }
 
@@ -93,6 +92,40 @@ container.innerHTML+=`
 
 }
 
+function updateFilters(list){
+
+const addresses=[...new Set(list.map(c=>c.address))]
+const directions=[...new Set(list.map(c=>c.direction))]
+
+fillSelect("addressFilter",addresses)
+fillSelect("directionFilter",directions)
+
+}
+
+function fillSelect(id,values){
+
+const select=document.getElementById(id)
+
+const current=select.value
+
+select.innerHTML=`<option value="">${select.id==="addressFilter"?"Адрес":"Направление"}</option>`
+
+values.sort().forEach(v=>{
+
+const option=document.createElement("option")
+
+option.value=v
+
+option.textContent=v
+
+select.appendChild(option)
+
+})
+
+select.value=current
+
+}
+
 function filterClubs(){
 
 const text=document
@@ -100,8 +133,8 @@ const text=document
 .value
 .toLowerCase()
 
-const age=document
-.getElementById("ageFilter")
+const ageInput=document
+.getElementById("ageInput")
 .value
 
 const address=document
@@ -112,19 +145,43 @@ const direction=document
 .getElementById("directionFilter")
 .value
 
-let filtered=clubs.filter(c=>
+let filtered=clubs.filter(c=>{
 
-c.name.toLowerCase().includes(text) ||
-c.direction.toLowerCase().includes(text) ||
-c.teacher.toLowerCase().includes(text)
+const nameMatch=c.name.toLowerCase().includes(text)
 
-)
+const dirMatch=c.direction.toLowerCase().includes(text)
 
-if(age) filtered=filtered.filter(c=>c.age===age)
+const teacherMatch=c.teacher.toLowerCase().includes(text)
 
-if(address) filtered=filtered.filter(c=>c.address===address)
+return nameMatch||dirMatch||teacherMatch
 
-if(direction) filtered=filtered.filter(c=>c.direction===direction)
+})
+
+if(ageInput){
+
+filtered=filtered.filter(c=>{
+
+const age=parseAge(c.age)
+
+return ageInput>=age.min && ageInput<=age.max
+
+})
+
+}
+
+if(address){
+
+filtered=filtered.filter(c=>c.address===address)
+
+}
+
+if(direction){
+
+filtered=filtered.filter(c=>c.direction===direction)
+
+}
+
+updateFilters(filtered)
 
 renderClubs(filtered)
 

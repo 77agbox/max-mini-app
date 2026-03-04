@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
+
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Центр Виктор</title>
+<title>Кружки</title>
 
 <link rel="stylesheet" href="styles.css">
 
@@ -12,31 +13,19 @@
 
 <body>
 
-<h1>Центр Виктор</h1>
+<h1>Кружки</h1>
 
-<div class="menu">
+<input
+type="text"
+id="search"
+placeholder="🔎 Найти кружок..."
+oninput="searchClubs()"
+/>
 
-<button onclick="openPage('clubs')">
-🎨 Кружки
-</button>
-
-<button onclick="openPage('masters')">
-🧩 Мастер-классы
-</button>
-
-<button onclick="openPage('packages')">
-🎉 Пакетные туры
-</button>
-
-<button onclick="openPage('support')">
-✉ Поддержка
-</button>
-
-</div>
-
-<div id="content"></div>
+<div id="clubs"></div>
 
 <script src="app.js"></script>
 
 </body>
+
 </html>

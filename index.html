@@ -1,49 +1,105 @@
-<!DOCTYPE html>
-<html lang="ru">
+body{
 
-<head>
+font-family: Arial, sans-serif;
 
-<meta charset="UTF-8">
+background:#f4f6f8;
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+margin:0;
 
-<title>Кружки</title>
+padding:20px;
 
-<link rel="stylesheet" href="styles.css">
+}
 
-</head>
+h1{
 
-<body>
+text-align:center;
 
-<h1>Кружки</h1>
+margin-bottom:20px;
 
-<input
-type="text"
-id="search"
-placeholder="🔎 Найти кружок..."
-oninput="filterClubs()"
-/>
+}
 
-<div class="filters">
+input{
 
-<select id="ageFilter" onchange="filterClubs()">
-<option value="">Возраст</option>
-</select>
+width:100%;
 
-<select id="addressFilter" onchange="filterClubs()">
-<option value="">Адрес</option>
-</select>
+padding:14px;
 
-<select id="directionFilter" onchange="filterClubs()">
-<option value="">Направление</option>
-</select>
+font-size:16px;
 
-</div>
+border-radius:10px;
 
-<div id="clubs"></div>
+border:1px solid #ccc;
 
-<script src="app.js"></script>
+margin-bottom:15px;
 
-</body>
+box-sizing:border-box;
 
-</html>
+}
+
+.filters{
+
+display:flex;
+
+gap:10px;
+
+margin-bottom:20px;
+
+flex-wrap:wrap;
+
+}
+
+select{
+
+flex:1;
+
+padding:12px;
+
+border-radius:10px;
+
+border:1px solid #ccc;
+
+}
+
+.card{
+
+background:white;
+
+padding:16px;
+
+margin-bottom:15px;
+
+border-radius:12px;
+
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+
+}
+
+.card h3{
+
+margin-top:0;
+
+}
+
+.card p{
+
+word-wrap:break-word;
+
+}
+
+.card button{
+
+margin-top:10px;
+
+padding:10px 14px;
+
+border:none;
+
+background:#2d7ef7;
+
+color:white;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
